@@ -9,10 +9,10 @@
 //------------------ Definición de Pines ------------------
 #define SENSOR_T 33
 #define SERVO_1 25
-#define LED_R 4
-#define LED_Y 2
-#define LED_G 15
-#define PushB_1 34
+#define LED_R 15
+#define LED_G 2
+#define LED_B 4
+#define PUSHB_1 34
 
 //------------------ Variables Globales ------------------
 Servo servoMotor;
@@ -24,10 +24,10 @@ int estado_Termo(float t);
 // ------------------ Setup ------------------
 void setup() {
   Serial.begin(115200);
-  pinMode(LED_G, OUTPUT);
-  pinMode(LED_Y, OUTPUT);
   pinMode(LED_R, OUTPUT);
-  pinMode(PushB_1, INPUT_PULLUP);
+  pinMode(LED_G, OUTPUT);
+  pinMode(LED_B, OUTPUT);
+  pinMode(PUSHB_1, INPUT_PULLUP);
 
   servoMotor.attach(SERVO_1);
   servoMotor.write(0); //Posicion incial donde se encuetra el servomotor
@@ -55,8 +55,8 @@ void loop() {
 // ------------------ Funciones ------------------
 float leerTemperatura(){ //Tomando código de la lectura de práctica del sensor
   int adcValue = analogRead(PIN_SENSOR);
-  float mV = (adcValue/ADC_bits)*ADC_en_mV;
-  float tempC = (mV/10);
+  float voltaje = (adcValue/4096.0)*3.3;
+  float tempC = voltage/0.01; //LM
 
   Serial.print("Bits Leidos: ");
   Serial.print(adcValue,1);
@@ -82,23 +82,23 @@ void actualizarLED_Servo(int estado) {
   string led = "";
   switch (estado) {
     case 0: //Verde
-      digitalWrite(LED_G, HIGH);
-      digitalWrite(LED_Y, LOW);
-      digitalWrite(LED_R, LOW);
+      analogWrite(LED_R, 0);
+      analogWrite(LED_G, 255);
+      analogWrite(LED_B, 0);
       angulo = 45;
       led = "Verde";
       break;
     case 1: //Amarillo
-      digitalWrite(LED_G, LOW);
-      digitalWrite(LED_Y, HIGH);
-      digitalWrite(LED_R, LOW);
+      analogWrite(LED_R, 255);
+      analogWrite(LED_G, 255);
+      analogWrite(LED_B, 0);
       angulo = 90;
       led = "Amarillo";
       break;
     case 2: //rojo
-      digitalWrite(LED_G, LOW);
-      digitalWrite(LED_Y, LOW);
-      digitalWrite(LED_R, HIGH);
+      analogWrite(LED_R, 255);
+      analogWrite(LED_G, 0);
+      analogWrite(LED_B, 0);
       angulo = 135;
       led = "Rojo";
       break;
@@ -115,6 +115,7 @@ void actualizarLED_Servo(int estado) {
 
 
       
+
 
 
 
