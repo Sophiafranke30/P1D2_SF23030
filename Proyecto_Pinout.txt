@@ -1,0 +1,18 @@
+Pin	Variable		COLORES RGB			
+12	LED_F			R	G	B
+14	LED_G		RED	255	0	0
+27	LED_B		YELLOW	255	255	0
+26	LED_A		GREEN	0	255	0
+25	SERVO_1					
+33	SENSOR_T					
+32	LED_P					
+34	PUSHB_1					
+15	LED_R					
+2	LED_G					
+4	LED_B					
+5	DISP_3					
+18	DISP_2					
+19	LED-E					
+21	LED_D					
+22	LED_C					
+23	DISP_1					
