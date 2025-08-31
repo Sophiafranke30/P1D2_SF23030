@@ -1,29 +1,119 @@
-#ifndef __DISP7_H__
-#define __DISP7_H__
+#include "disp7.h"
 
-#include <Arduino.h>
-#include <stdint.h>
-
-// Definición de Pines
-#define SEG_F   12
-#define SEG_G   14
-#define SEG_B   27
-#define SEG_A   26
-#define SEG_P   32
-#define SEG_E   19
-#define SEG_D   21
-#define SEG_C   22
-
-// ------------Prototipado de Funciones------------
+// ------------Funciones------------
 // Función para configurar Display de 7 Segmentos
-void configDisplay7(void);
+void configDisplay7(void){
+    //Configuración como salidas
+    pinMode(SEG_A, OUTPUT);
+    pinMode(SEG_B, OUTPUT);
+    pinMode(SEG_C, OUTPUT);
+    pinMode(SEG_D, OUTPUT);
+    pinMode(SEG_E, OUTPUT);
+    pinMode(SEG_F, OUTPUT);
+    pinMode(SEG_G, OUTPUT);
+    pinMode(SEG_P, OUTPUT);
 
+    // Configuración para ánodo común dejando todos los segmentos apagados inicialmente
+    digitalWrite(SEG_A,HIGH);
+    digitalWrite(SEG_B,HIGH);
+    digitalWrite(SEG_C,HIGH);
+    digitalWrite(SEG_D,HIGH);
+    digitalWrite(SEG_E,HIGH);
+    digitalWrite(SEG_F,HIGH);
+    digitalWrite(SEG_G,HIGH);
+    digitalWrite(SEG_P,HIGH);
+} 
 
-// Función para desplegar número en display 7 segementos
-void displayNum(uint8_t numero); //Dado que se están utilizando uint, agregar stdint
+// Función para desplegar el número en el display de 7 segmentos.
+void displayNum(uint8_t numero){
+    // Apagar todos los segmentos primero
+    digitalWrite(SEG_A, HIGH);
+    digitalWrite(SEG_B, HIGH);
+    digitalWrite(SEG_C, HIGH);
+    digitalWrite(SEG_D, HIGH);
+    digitalWrite(SEG_E, HIGH);
+    digitalWrite(SEG_F, HIGH);
+    digitalWrite(SEG_G, HIGH);
 
-// Función para desplegar el punto () despliega ; 0 no despliega)
-void displaydot(uint8_t punto);
+    switch (numero) {
+        case 0:
+            digitalWrite(SEG_A, LOW);
+            digitalWrite(SEG_B, LOW);
+            digitalWrite(SEG_C, LOW);
+            digitalWrite(SEG_D, LOW);
+            digitalWrite(SEG_E, LOW);
+            digitalWrite(SEG_F, LOW);
+            break;
+        case 1:
+            digitalWrite(SEG_B, LOW);
+            digitalWrite(SEG_C, LOW);
+            break;
+        case 2:
+            digitalWrite(SEG_A, LOW);
+            digitalWrite(SEG_B, LOW);
+            digitalWrite(SEG_D, LOW);
+            digitalWrite(SEG_E, LOW);
+            digitalWrite(SEG_G, LOW);
+            break;
+        case 3:
+            digitalWrite(SEG_A, LOW);
+            digitalWrite(SEG_B, LOW);
+            digitalWrite(SEG_C, LOW);
+            digitalWrite(SEG_D, LOW);
+            digitalWrite(SEG_G, LOW);
+            break;
+        case 4:
+            digitalWrite(SEG_B, LOW);
+            digitalWrite(SEG_C, LOW);
+            digitalWrite(SEG_F, LOW);
+            digitalWrite(SEG_G, LOW);
+            break;
+        case 5:
+            digitalWrite(SEG_A, LOW);
+            digitalWrite(SEG_C, LOW);
+            digitalWrite(SEG_D, LOW);
+            digitalWrite(SEG_F, LOW);
+            digitalWrite(SEG_G, LOW);
+            break;
+        case 6:
+            digitalWrite(SEG_A, LOW);
+            digitalWrite(SEG_C, LOW);
+            digitalWrite(SEG_D, LOW);
+            digitalWrite(SEG_E, LOW);
+            digitalWrite(SEG_F, LOW);
+            digitalWrite(SEG_G, LOW);
+            break;
+        case 7:
+            digitalWrite(SEG_A, LOW);
+            digitalWrite(SEG_B, LOW);
+            digitalWrite(SEG_C, LOW);
+            break;
+        case 8:
+            digitalWrite(SEG_A, LOW);
+            digitalWrite(SEG_B, LOW);
+            digitalWrite(SEG_C, LOW);
+            digitalWrite(SEG_D, LOW);
+            digitalWrite(SEG_E, LOW);
+            digitalWrite(SEG_F, LOW);
+            digitalWrite(SEG_G, LOW);
+            break;
+        case 9:
+            digitalWrite(SEG_A, LOW);
+            digitalWrite(SEG_B, LOW);
+            digitalWrite(SEG_C, LOW);
+            digitalWrite(SEG_D, LOW);
+            digitalWrite(SEG_F, LOW);
+            digitalWrite(SEG_G, LOW);
+            break;
+    }
+}
 
-
-#endif // __DISP7_H__
+// Función para desplegar el punto
+void displaydot(uint8_t punto){
+    if (punto == 1){
+        digitalWrite(SEG_P, LOW);
+    }
+    else{
+        digitalWrite(SEG_P, HIGH);
+    }
+}
