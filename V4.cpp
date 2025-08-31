@@ -141,20 +141,17 @@ void loop() {
 
         if (temperaturaFija < 22.0) {
             digitalWrite(LED_G, HIGH);
-            int angulo = map((int)(temperaturaFija * 10), 150, 219, 0, 60);
-            moverServo(angulo);
+            moverServo(45);
             Serial.print("Verde - Ángulo: "); Serial.println(angulo);
         }
         else if (temperaturaFija <= 25.0) {
             digitalWrite(LED_Y, HIGH);
-            int angulo = map((int)(temperaturaFija * 10), 220, 250, 61, 120);
-            moverServo(angulo);
+            moverServo(90);
             Serial.print("Amarillo - Ángulo: "); Serial.println(angulo);
         } 
         else {
             digitalWrite(LED_R, HIGH);
-            int angulo = map((int)(temperaturaFija * 10), 251, 350, 121, 180);
-            moverServo(angulo);
+            moverServo(135);
             Serial.print("Rojo - Ángulo: "); Serial.println(angulo);
         }
     }
@@ -188,7 +185,7 @@ void configurarServo() {
 }
 
 void moverServo(int angulo) {
-  int dutyCycle = map(angulo, 0, 180, 204, 409); // 12 bits
+  int dutyCycle = map(angulo, 0, 180, 102, 512); //Resolución de 12 bits para no sobrecargar el ADC; 1ms ~ 0° | 2ms ~ 180°
   ledcWrite(SERVO_CHANNEL, dutyCycle);
 }
 
